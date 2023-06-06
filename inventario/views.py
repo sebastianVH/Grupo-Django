@@ -15,3 +15,5 @@ def saludar(request):
 def despedida(request):
     return HttpResponse(" Adios! Salida de la pagina")
 
+def listado(request):
+    return render(request,'listado.html')
