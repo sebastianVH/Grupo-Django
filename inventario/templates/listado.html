@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Listado de Art
+{% endblock title %}
+
+{% block content %}
+
+  <h1>Listado de Articulos</h1>
+  <table class="table table-bordered table-hover">
+    <thead class="table-primary">
+        <th>Nombre</th>
+        <th>Precio</th>
+        <th>Stock</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+      <!-- vamos a recorrer la lista de productos y mostrar cada uno de ellos -->
+        <!-- Esto que viene es codigo Python: para llamar a una variable en codigo python, usamos doble llave en apertura y cierre , sin % {{productos}}  -->
+        {% for producto in productos %}
+          <tr>
+            <!-- para acceder a una PROPIEDAD que tiene un OBJETO de mis productos, utilizo el signo de . seguido del nombre de la propiedad -->
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.precio }}</td>
+            <td>{{ producto.stock }}</td>
+            <td><button type="button" class="btn btn-warning">Editar</button> <button type="button" class="btn btn-danger">Eliminar</button> </td>
+          </tr>
+        {% endfor %}
+
+    </tbody>
+  </table>
+  <!-- este boton servira para abrir un formulario en un "Modal" -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearProducto" >Crear Producto</button>
+
+  <div class="modal fade" id="crearProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Crear nuevo producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-control" action="{% url 'crear' %}" method="post">
+            <!--! FUNDAMENTAL USAR EL CSRF TOKEN PARA VALIDAR EL ENVIO DEL FORMULARIO!!! -->
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+              <input type="text" class="form-control" name="nombre" id="nombre" required placeholder="Ingrese nombre del producto">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Precio</label>
+              <input type="number" class="form-control" name="precio" id="precio" required placeholder="Ingrese precio del producto">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Stock</label>
+              <input type="number" class="form-control" name="stock" id="stock" required placeholder="Ingrese stock del producto">
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-success">Aceptar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
