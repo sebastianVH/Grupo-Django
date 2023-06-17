@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+<!-- recordar poner el load static para cargar rapidamente nuestros estilos -->
+{% load static %}
 
 {% block title %}
   Listado de Art
@@ -23,7 +25,10 @@
             <td>{{ producto.nombre }}</td>
             <td>{{ producto.precio }}</td>
             <td>{{ producto.stock }}</td>
-            <td><button type="button" class="btn btn-warning">Editar</button> <button type="button" class="btn btn-danger">Eliminar</button> </td>
+            <td>
+              <a href="{% url 'editar' producto.id %}"><button type="button" class="btn btn-warning">Editar</button></a>
+              <a href="{% url 'eliminar' producto.id %}"><button type="button" class="btn btn-danger">Eliminar</button></a>
+            </td>
           </tr>
         {% endfor %}
 
