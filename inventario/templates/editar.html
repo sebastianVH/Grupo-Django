@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  Editar Producto 
+{% endblock title %}
+
+{% block content %}
+
+<h1>Editar producto {{producto.nombre}}</h1>
+<form class="form-control" action="{% url 'editar' producto.id %}" method="post">
+    <!--! FUNDAMENTAL USAR EL CSRF TOKEN PARA VALIDAR EL ENVIO DEL FORMULARIO!!! -->
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="form-label">Nombre</label>
+      <input type="text" class="form-control" name="nombre" id="nombre" value="{{producto.nombre}}" required placeholder="Ingrese nombre del producto">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Precio</label>
+      <input type="number" class="form-control" name="precio" id="precio" value="{{producto.precio}}" required placeholder="Ingrese precio del producto">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Stock</label>
+      <input type="number" class="form-control" name="stock" id="stock" value="{{producto.stock}}" required placeholder="Ingrese stock del producto">
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Aceptar</button>  
+       <a href="{% url 'base' %}" class="btn btn-danger">Cancelar</a>
+    </div>
+  </form>
+
+{% endblock content %}
+
