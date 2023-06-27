@@ -36,10 +36,11 @@ def eliminarProducto(request,id):
 def editarProducto(request,id):
     #busco el producto que voy a actualizar
     producto = Productos.objects.get(id=id)
-    
+    categorias = Categoria.objects.all()
+
     if request.method == 'GET':
         #debo elegir y enviar el producto
-        ctx = {'producto':producto}
+        ctx = {'producto':producto,'categorias':categorias}
         return render(request,'editar.html',ctx)
         
     elif request.method == 'POST':
@@ -47,10 +48,13 @@ def editarProducto(request,id):
         nuevo_nombre = request.POST["nombre"]
         nuevo_precio = request.POST["precio"]
         nuevo_stock = request.POST["stock"]
+        categoria_id = request.POST["categoria"]
+        categoria = Categoria.objects.get(id=categoria_id)
         #asigno esos datos del post a mi producto
         producto.nombre = nuevo_nombre
         producto.precio = nuevo_precio
         producto.stock = nuevo_stock
+        producto.categoria = categoria
         producto.save() #NECESITO SI O SI EL SAVE PARA GUARDAR EL PRODUCTO EN MI BASE DE DATOS
         return redirect('/')
     
