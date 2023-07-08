@@ -50,7 +50,7 @@
           <form class="form-control" action="{% url 'crear' %}" method="post">
             <!--! FUNDAMENTAL USAR EL CSRF TOKEN PARA VALIDAR EL ENVIO DEL FORMULARIO!!! -->
             {% csrf_token %}
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">Nombre</label>
               <input type="text" class="form-control" name="nombre" id="nombre" required placeholder="Ingrese nombre del producto">
             </div>
@@ -70,11 +70,15 @@
                   <option value="{{categoria.id}}">{{categoria.nombre}}</option>
                 {% endfor %}
               </select>
-            </div>
-            <div class="modal-footer">
+            </div>-->
+            <table>
+              {{formulario.as_table}}
+            </table>
+            <hr>
+            <div>
               <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-success">Aceptar</button>
-            </div>
+            </div> 
           </form>
         </div>
       </div>
